@@ -7,8 +7,20 @@ function App() {
 
   const [todos, setTodos] = useState([])
 
-  const addTodo =()=>{
-    
+  const addTodo =(todoMsg)=>{
+         setTodos((prev)=>[{id: Date.now(), ...todoMsg}, ...prev])
+  }
+
+  const updateTodo = (id,todoMsg)=>{
+        setTodos((prev) => prev.map((prevTodo)=>(prevTodo.id === id ? todoMsg : prevTodo))) 
+  }
+
+  const deleteTodo = (id) =>{
+    setTodos((prev)=> prev.filter((todoMsg)=> todoMsg.id !== id))
+  }
+
+  const toggleCompleted = (id) =>{
+    setTodos((prev) => prev.map((prevTodo) => prevTodo === id ? {...prevTodo, completed: !prevTodo.completed }  : prevTodo))
   }
 
 
