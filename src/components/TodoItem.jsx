@@ -1,19 +1,20 @@
 import React from 'react'
+import { useState } from 'react'
 import { useTodo } from '../contexts/TodoContext'
 
 function TodoItem({ todo }) {
     
     const [isTodoEditable, setIsTodoEditable] = useState(false)
-    const [todo, setTodo] = useState(todo.todo)
-    const {updateTodo, deleteTodo, toggleComplete} = useTodo()
+    const [todoMsg, setTodoMsg] = useState(todo.todo)
+    const {updateTodo, deleteTodo, toggleCompleted} = useTodo()
   
     const editTodo = () => {
-      updateTodo(todo.id, {...todo, todoMsg: todo})
+      updateTodo(todo.id, {...todo, todo: todoMsg})
       setIsTodoEditable(false)
     }
-    const toggleCompleted = () => {
+    const toggleComplete = () => {
     
-      toggleComplete(todo.id)
+      toggleCompleted(todo.id)
     }
   
 
@@ -27,7 +28,7 @@ function TodoItem({ todo }) {
                 type="checkbox"
                 className="cursor-pointer"
                 checked={todo.completed}
-                onChange={toggleCompleted}
+                onChange={toggleComplete}
             />
             <input
                 type="text"
@@ -35,7 +36,7 @@ function TodoItem({ todo }) {
                     isTodoEditable ? "border-black/10 px-2" : "border-transparent"
                 } ${todo.completed ? "line-through" : ""}`}
                 value={todoMsg}
-                onChange={(e) => setTodo(e.target.value)}
+                onChange={(e) => setTodoMsg(e.target.value)}
                 readOnly={!isTodoEditable}
             />
             {/* Edit, Save Button */}
