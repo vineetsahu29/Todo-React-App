@@ -1,7 +1,21 @@
 import React from 'react'
+import { useTodo } from '../contexts/TodoContext'
 
 function TodoItem({ todo }) {
     
+    const [isTodoEditable, setIsTodoEditable] = useState(false)
+    const [todo, setTodo] = useState(todo.todo)
+    const {updateTodo, deleteTodo, toggleComplete} = useTodo()
+  
+    const editTodo = () => {
+      updateTodo(todo.id, {...todo, todoMsg: todo})
+      setIsTodoEditable(false)
+    }
+    const toggleCompleted = () => {
+    
+      toggleComplete(todo.id)
+    }
+  
 
     return (
         <div
@@ -21,7 +35,7 @@ function TodoItem({ todo }) {
                     isTodoEditable ? "border-black/10 px-2" : "border-transparent"
                 } ${todo.completed ? "line-through" : ""}`}
                 value={todoMsg}
-                onChange={(e) => setTodoMsg(e.target.value)}
+                onChange={(e) => setTodo(e.target.value)}
                 readOnly={!isTodoEditable}
             />
             {/* Edit, Save Button */}
